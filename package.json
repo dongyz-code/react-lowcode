@@ -13,6 +13,8 @@
     "allotment": "^1.20.2",
     "antd": "^5.21.3",
     "react": "^18.3.1",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.26.2",
     "zustand": "5.0.0-rc.2"
@@ -29,6 +31,7 @@
     "eslint-plugin-react-refresh": "^0.4.12",
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
+    "prettier-plugin-tailwindcss": "^0.6.8",
     "sass": "^1.79.4",
     "tailwindcss": "^3.4.13",
     "typescript": "^5.5.3",

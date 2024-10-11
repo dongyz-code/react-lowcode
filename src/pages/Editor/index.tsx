@@ -1,4 +1,6 @@
 import { Allotment } from 'allotment';
+import EditorArea from './components/EditorArea';
+import MeterilArea from './components/MeterilArea';
 import 'allotment/dist/style.css';
 
 const Editor = () => {
@@ -6,10 +8,12 @@ const Editor = () => {
     <div className="h-screen">
       <Allotment>
         <Allotment.Pane preferredSize={240} maxSize={300} minSize={200}>
-          Meteril
+          <MeterilArea />
         </Allotment.Pane>
 
-        <Allotment.Pane>EditArea</Allotment.Pane>
+        <Allotment.Pane>
+          <EditorArea />
+        </Allotment.Pane>
 
         <Allotment.Pane preferredSize={300} maxSize={500} minSize={300}>
           Seeting

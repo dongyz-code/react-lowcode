@@ -4,7 +4,7 @@ import { findNodeById } from '@/utils/tree';
 export interface IComponent {
   id: number;
   name: string;
-  props: unknown;
+  props: Record<string, unknown>;
   children?: IComponent[];
   parentId?: number;
 }
@@ -14,7 +14,7 @@ export interface IComponentSotre {
 
   addComponent: (component: IComponent, parentId?: number) => void;
   removeComponent: (id: number) => void;
-  updateComponentProps: (id: number, props: unknown) => void;
+  updateComponentProps: (id: number, props: Record<string, unknown>) => void;
 }
 
 export const useComponentStore = create<IComponentSotre>((set, get) => ({
