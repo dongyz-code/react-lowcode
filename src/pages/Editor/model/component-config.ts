@@ -1,13 +1,14 @@
-import { FunctionComponent, ComponentType, FC } from 'react';
 import { create } from 'zustand';
 import Container from '../materials/Container';
 import Button from '../materials/Button';
 import Page from '../materials/Page';
 
+import type { ComponentType } from 'react';
+
 export interface ComponentConfig {
   name: string;
   defaultProps: Record<string, unknown>;
-  component: ComponentType<any> | FC;
+  component: ComponentType<any>;
 }
 
 interface ComponentConfigStore {

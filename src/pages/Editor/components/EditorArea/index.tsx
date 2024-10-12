@@ -18,6 +18,8 @@ const EditorArea = () => {
         config.component,
         {
           key: index,
+          id: item.id,
+          name: item.name,
           ...config.defaultProps,
           ...item.props,
         },
@@ -26,7 +28,7 @@ const EditorArea = () => {
     });
   };
 
-  return <div className="editor-area">{renderComponent(components)}</div>;
+  return <div className="h-full">{renderComponent(components)}</div>;
 };
 
 export default EditorArea;

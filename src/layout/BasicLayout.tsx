@@ -3,8 +3,8 @@ import { Outlet, Link } from 'react-router-dom';
 
 const BasicLayout = () => {
   return (
-    <div className="relative bg-gray-50">
-      <div className="flex items-center h-14 border-b border-gray-200 px-3">
+    <div className="relative">
+      <div className="flex h-14 items-center border-b border-gray-300 px-3">
         {menuList.map((item) => (
           <Link to={item.path} key={item.path} className="mr-8">
             {item.name}
@@ -12,7 +12,7 @@ const BasicLayout = () => {
         ))}
       </div>
 
-      <div className="p-1 rounded">
+      <div className="rounded">
         <Outlet />
       </div>
     </div>

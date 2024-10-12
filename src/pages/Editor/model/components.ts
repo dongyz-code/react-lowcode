@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { findNodeById } from '@/utils/tree';
+import { findNodeById, snowflake } from '@/utils';
 
 export interface IComponent {
   id: number;
@@ -18,7 +18,14 @@ export interface IComponentSotre {
 }
 
 export const useComponentStore = create<IComponentSotre>((set, get) => ({
-  components: [],
+  components: [
+    {
+      id: snowflake(),
+      name: 'Page',
+      props: {},
+      children: [],
+    },
+  ],
 
   addComponent: (component, pid) =>
     set((state) => {
