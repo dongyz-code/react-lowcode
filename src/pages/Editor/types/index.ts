@@ -1,5 +1,5 @@
 export interface IBaseComponentProps {
-  id: string;
+  id: number;
   cid: string;
   className?: string;
 }

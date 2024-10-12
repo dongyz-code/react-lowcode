@@ -25,7 +25,9 @@ export const useComponentConfig = create<ComponentConfigStore>((set) => ({
     },
     Button: {
       cid: 'Button',
-      defaultProps: {},
+      defaultProps: {
+        text: '按钮',
+      },
       component: Button,
     },
     Page: {

@@ -1,6 +1,7 @@
 import { Allotment } from 'allotment';
 import EditorArea from './components/EditorArea';
 import MeterilArea from './components/MeterilArea';
+import SettingArea from './components/SeetingArea';
 import 'allotment/dist/style.css';
 
 const Editor = () => {
@@ -16,7 +17,7 @@ const Editor = () => {
         </Allotment.Pane>
 
         <Allotment.Pane preferredSize={300} maxSize={500} minSize={300}>
-          Seeting
+          <SettingArea />
         </Allotment.Pane>
       </Allotment>
     </div>
