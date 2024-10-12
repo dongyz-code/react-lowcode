@@ -16,7 +16,7 @@ export function getRouterObject(routes?: IRoute[]): RouteObject[] {
 
   return routes.map((route) => {
     const { name, path, component: Component, children, redirect, ...rest } = route;
-    let element = null;
+    let element: React.ReactNode = null;
     if (Component) {
       element = lazyLoadComponent(Component);
     }

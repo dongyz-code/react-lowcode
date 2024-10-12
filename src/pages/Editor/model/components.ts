@@ -3,7 +3,7 @@ import { findNodeById, snowflake } from '@/utils';
 
 export interface IComponent {
   id: number;
-  name: string;
+  cid: string;
   props: Record<string, unknown>;
   children?: IComponent[];
   parentId?: number;
@@ -21,7 +21,7 @@ export const useComponentStore = create<IComponentSotre>((set, get) => ({
   components: [
     {
       id: snowflake(),
-      name: 'Page',
+      cid: 'Page',
       props: {},
       children: [],
     },

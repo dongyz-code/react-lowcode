@@ -1,4 +1,4 @@
 export interface MaterialItemProps {
-  name: string;
+  cid: string;
   className?: string;
 }

@@ -8,7 +8,7 @@ const EditorArea = () => {
 
   const renderComponent = (component: IComponent[]): React.ReactNode => {
     return component.map((item, index) => {
-      const config = componentConfig[item.name];
+      const config = componentConfig[item.cid];
 
       if (!config?.component) {
         return null;
@@ -19,7 +19,7 @@ const EditorArea = () => {
         {
           key: index,
           id: item.id,
-          name: item.name,
+          cid: item.cid,
           ...config.defaultProps,
           ...item.props,
         },

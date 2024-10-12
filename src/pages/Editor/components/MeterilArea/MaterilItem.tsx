@@ -2,9 +2,9 @@ import classNames from 'classnames';
 import { useDrag } from 'react-dnd';
 import type { MaterialItemProps } from './interface';
 
-const MaterilItem = ({ name, className }: MaterialItemProps) => {
+const MaterilItem = ({ cid, className }: MaterialItemProps) => {
   const [_, drag] = useDrag({
-    type: name,
+    type: cid,
     item: {
       type: name,
     },
@@ -17,7 +17,7 @@ const MaterilItem = ({ name, className }: MaterialItemProps) => {
         className
       )}
     >
-      {name}
+      {cid}
     </div>
   );
 };
