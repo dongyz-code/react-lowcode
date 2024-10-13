@@ -1,14 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useMemo, useRef } from 'react';
 import { useComponentStore, IComponent } from '../../model/components';
 import { useComponentConfig } from '../../model/component-config';
 import { useHoverMask } from '../../hooks/useHoverMask';
+import { useClickModal } from '../../hooks/useClickModal';
 
 const EditorArea = () => {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { components } = useComponentStore();
+  const { components, selectedId } = useComponentStore();
   const { componentConfig } = useComponentConfig();
-  const { handleMouseHover, handleMouseLeave, dom } = useHoverMask(containerRef);
+  const { handleMouseHover, handleMouseLeave, hoverId, dom } = useHoverMask(containerRef);
+  const { handleClick, dom: actionDom } = useClickModal(containerRef);
 
   const renderComponent = (component: IComponent[]): React.ReactNode => {
     return component.map((item, index) => {
@@ -32,17 +34,23 @@ const EditorArea = () => {
     });
   };
 
+  const componentDom = useMemo(() => renderComponent(components), [components, componentConfig]);
+
   return (
     <div
       ref={containerRef}
-      className="relative box-border h-full bg-gray-200 p-5"
+      className="relative box-border h-full overflow-y-auto bg-gray-200 p-5"
       onMouseOver={handleMouseHover}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
-      <div className="h-full">{renderComponent(components)}</div>
+      <div className="h-full">{componentDom}</div>
 
       {/* hover mask */}
-      {dom}
+      {hoverId && hoverId !== selectedId && dom}
+
+      {/* click modal */}
+      {actionDom}
     </div>
   );
 };

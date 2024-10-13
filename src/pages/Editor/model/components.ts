@@ -10,11 +10,14 @@ export interface IComponent {
 }
 
 export interface IComponentSotre {
+  selectedId?: number;
+  selectedComponent?: IComponent;
   components: IComponent[];
 
   addComponent: (component: IComponent, parentId?: number) => void;
   removeComponent: (id: number) => void;
   updateComponentProps: (id: number, props: Record<string, unknown>) => void;
+  setSelectedComponent: (id?: number) => void;
 }
 
 export const useComponentStore = create<IComponentSotre>((set, get) => ({
@@ -36,6 +39,7 @@ export const useComponentStore = create<IComponentSotre>((set, get) => ({
         });
 
         if (parent) {
+          component.parentId = pid;
           parent.children = parent.children || [];
           parent.children.push(component);
         }
@@ -67,6 +71,10 @@ export const useComponentStore = create<IComponentSotre>((set, get) => ({
         set((state) => ({ components: [...state.components] }));
       }
     }
+
+    set((state) => ({
+      components: state.components.filter((c) => c.id !== id),
+    }));
   },
 
   updateComponentProps: (id, props) => {
@@ -78,5 +86,25 @@ export const useComponentStore = create<IComponentSotre>((set, get) => ({
       component.props = props;
       return set((state) => ({ components: [...state.components] }));
     }
+  },
+
+  setSelectedComponent: (id) => {
+    if (!id) {
+      set(() => ({
+        selectedId: undefined,
+        selectedComponent: undefined,
+      }));
+      return;
+    }
+
+    const comp = findNodeById({
+      tree: get().components,
+      id,
+    });
+
+    set(() => ({
+      selectedId: id,
+      selectedComponent: comp ?? undefined,
+    }));
   },
 }));

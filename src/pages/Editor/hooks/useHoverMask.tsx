@@ -1,4 +1,4 @@
-import { useState, useMemo, MouseEventHandler, RefObject } from 'react';
+import { useState, useMemo, MouseEventHandler, RefObject, useEffect } from 'react';
 import { useComponentStore } from '../model';
 import { findNodeById } from '@/utils';
 
@@ -22,10 +22,10 @@ export const useHoverMask = (containerRef: RefObject<HTMLDivElement>) => {
     for (let i = 0; i < path.length; i++) {
       const element = path[i] as HTMLElement;
       const data_id = element?.dataset?.['id'];
-      if (element instanceof HTMLElement && data_id) {
-        setHoverId(Number(data_id));
-        updatePosition(Number(data_id));
-        break;
+      const real_data_id = Number(data_id);
+      if (element instanceof HTMLElement && real_data_id) {
+        setHoverId(real_data_id);
+        return;
       }
     }
   };
@@ -92,7 +92,7 @@ export const useHoverMask = (containerRef: RefObject<HTMLDivElement>) => {
           }}
         ></div>
         <div
-          className="absolute z-30 inline-flex cursor-pointer items-center whitespace-nowrap rounded bg-primary/50 px-2 text-sm text-white"
+          className="absolute z-30 inline-flex cursor-pointer items-center whitespace-nowrap rounded-sm bg-primary/50 px-2 text-sm text-white"
           style={{
             left: postion.labelLeft,
             top: postion.labelTop,
@@ -104,6 +104,12 @@ export const useHoverMask = (containerRef: RefObject<HTMLDivElement>) => {
       </>
     );
   }, [hoverId, postion, currComponent]);
+
+  useEffect(() => {
+    if (hoverId) {
+      updatePosition(hoverId);
+    }
+  }, [commponents, hoverId]);
 
   return {
     handleMouseLeave,

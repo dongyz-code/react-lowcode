@@ -10,7 +10,7 @@ function Page({ children, id, cid, className }: IPagerProps) {
       ref={drop}
       data-id={id}
       data-cid={cid}
-      className={classNames('box-border h-full border-dashed border-primary p-5', className, {
+      className={classNames('box-border min-h-full border-dashed border-primary p-5', className, {
         'border-2': canDrop,
       })}
     >
