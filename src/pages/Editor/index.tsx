@@ -6,7 +6,7 @@ import 'allotment/dist/style.css';
 
 const Editor = () => {
   return (
-    <div className="h-screen">
+    <div className="h-[calc(100vh-var(--header-height))]">
       <Allotment>
         <Allotment.Pane preferredSize={240} maxSize={300} minSize={200}>
           <MeterilArea />

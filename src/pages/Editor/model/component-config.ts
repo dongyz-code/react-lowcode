@@ -32,7 +32,9 @@ export const useComponentConfig = create<ComponentConfigStore>((set) => ({
     },
     Page: {
       cid: 'Page',
-      defaultProps: {},
+      defaultProps: {
+        className: 'bg-white'
+      },
       component: Page,
     },
   },

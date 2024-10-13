@@ -4,7 +4,7 @@ import { Outlet, Link } from 'react-router-dom';
 const BasicLayout = () => {
   return (
     <div className="relative">
-      <div className="flex h-14 items-center border-b border-gray-300 px-3">
+      <div className="flex h-[--header-height] items-center border-b border-gray-300 px-3">
         {menuList.map((item) => (
           <Link to={item.path} key={item.path} className="mr-8">
             {item.name}

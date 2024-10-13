@@ -1,0 +1,1 @@
+export const EDITOR_CONTAINER_ID = 'EDITOR-CONTAINER';
