@@ -12,7 +12,7 @@ const MeterilArea = () => {
   return (
     <div>
       {components.map((component, i) => (
-        <MaterilItem key={component.cid + i} cid={component.cid} />
+        <MaterilItem key={component.cid + i} componentConfig={component} />
       ))}
     </div>
   );

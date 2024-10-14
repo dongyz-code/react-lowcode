@@ -1,4 +1,6 @@
+import { ComponentConfig } from '../../model';
+
 export interface MaterialItemProps {
-  cid: string;
+  componentConfig: ComponentConfig;
   className?: string;
 }
