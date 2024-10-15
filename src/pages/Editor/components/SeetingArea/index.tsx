@@ -1,22 +1,31 @@
-import { Tabs } from 'antd';
-import { useComponentStore } from '../../model';
+import { Tabs, TabsProps } from 'antd';
+import SeetingEvents from './SeetingEvents';
+import SettingStyles from './SeetingStyles';
+import SeetingAttrbutes from './SeetingAttrbutes';
 
 const SettingArea = () => {
-  const components = useComponentStore((state) => state.components);
+  const items: TabsProps['items'] = [
+    {
+      key: 'attrbutes',
+      label: '属性',
+      children: <SeetingAttrbutes />,
+    },
+    {
+      key: 'styles',
+      label: '样式',
+      children: <SettingStyles />,
+    },
+
+    {
+      key: 'events',
+      label: '事件',
+      children: <SeetingEvents />,
+    },
+  ];
 
   return (
     <div className="px-2">
-      <Tabs centered>
-        <Tabs.TabPane tab="属性" key="attrbutes">
-          1
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="样式" key="styles">
-          2
-        </Tabs.TabPane>
-        <Tabs.TabPane tab="事件" key="events">
-          3
-        </Tabs.TabPane>
-      </Tabs>
+      <Tabs centered items={items} />
     </div>
   );
 };
