@@ -1,25 +1,19 @@
+import React from 'react';
 import { create } from 'zustand';
 import Container from '../materials/Container';
 import Button from '../materials/Button';
 import Page from '../materials/Page';
 
 import type { ComponentType } from 'react';
-import React from 'react';
-
-export interface ComponentSeeter {
-  name: string;
-  label: string;
-  type: string;
-  [key: string]: any;
-}
+import type { JsonFormItemProps } from '@/components/JsonForm/interface';
 
 export interface ComponentConfig {
   cid: string;
   name: string;
   desc?: string;
   icon?: React.ReactNode;
-  seeter: ComponentSeeter[];
-  styleSeeter: ComponentSeeter[];
+  seeter: JsonFormItemProps[];
+  styleSeeter: JsonFormItemProps[];
   defaultProps: Record<string, unknown>;
   component: ComponentType<any>;
 }
@@ -45,10 +39,49 @@ export const useComponentConfig = create<ComponentConfigStore>((set) => ({
       name: '按钮',
       desc: '用于触发业务逻辑的按钮组件',
       seeter: [
-        { name: 'type', label: '按钮类型', type: 'radio', options: ['primary', 'secondary', 'dashed', 'text'] },
-        { name: 'text', label: '文本内容', type: 'input' },
+        {
+          name: 'type',
+          label: '按钮类型',
+          schema: {
+            type: 'radio',
+            props: {
+              options: ['primary', 'secondary', 'dashed', 'text'],
+            },
+          },
+        },
+        {
+          name: 'text',
+          label: '文本内容',
+          schema: {
+            type: 'input',
+            props: {
+              placeholder: '请输入文本内容',
+            },
+          },
+        },
       ],
-      styleSeeter: [],
+      styleSeeter: [
+        {
+          name: 'width',
+          label: '宽度',
+          schema: {
+            type: 'inputNumber',
+            props: {
+              min: 0,
+            },
+          },
+        },
+        {
+          name: 'height',
+          label: '高度',
+          schema: {
+            type: 'inputNumber',
+            props: {
+              min: 0,
+            },
+          },
+        },
+      ],
       defaultProps: {
         text: '按钮',
       },

@@ -7,6 +7,5 @@ export function snowflake() {
   const random = Math.floor(Math.random() * 1000000000);
   const id = time + random + _id;
   _id++;
-  console.log(id);
   return id;
 }

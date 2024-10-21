@@ -1,5 +1,5 @@
 import JsonForm from './JsonForm';
-import type { JsonFormProps } from './interface';
+import type { JsonFormProps, JsonFormItemProps } from './interface';
 
-export { JsonForm, type JsonFormProps };
+export { JsonForm, type JsonFormProps, type JsonFormItemProps };
 export default JsonForm;

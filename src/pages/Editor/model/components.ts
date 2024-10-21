@@ -5,6 +5,7 @@ export interface IComponent {
   id: number;
   cid: string;
   props: Record<string, unknown>;
+  styles?: React.CSSProperties;
   children?: IComponent[];
   parentId?: number;
 }
@@ -17,6 +18,7 @@ export interface IComponentSotre {
   addComponent: (component: IComponent, parentId?: number) => void;
   removeComponent: (id: number) => void;
   updateComponentProps: (id: number, props: Record<string, unknown>) => void;
+  updateComponentStyles: (id: number, styles?: React.CSSProperties) => void;
   setSelectedComponent: (id?: number) => void;
 }
 
@@ -106,5 +108,16 @@ export const useComponentStore = create<IComponentSotre>((set, get) => ({
       selectedId: id,
       selectedComponent: comp ?? undefined,
     }));
+  },
+
+  updateComponentStyles: (id, styles) => {
+    const component = findNodeById({
+      tree: get().components,
+      id,
+    });
+    if (component) {
+      component.styles = styles;
+      return set((state) => ({ components: [...state.components] }));
+    }
   },
 }));

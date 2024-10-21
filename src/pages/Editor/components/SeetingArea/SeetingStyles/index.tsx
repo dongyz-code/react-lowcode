@@ -1,45 +1,24 @@
 import { Form } from 'antd';
+import { useDebounceFn } from 'ahooks';
 import { useComponentConfig, useComponentStore } from '@/pages/Editor/model';
-import JsonForm, { type JsonFormProps } from '@/components/JsonForm';
-import type { SettingStyles } from './interface';
+import JsonForm from '@/components/JsonForm';
 
 const SettingStyles = () => {
   const [form] = Form.useForm();
   const { componentConfig } = useComponentConfig();
-  const { selectedComponent, updateComponentProps } = useComponentStore((state) => ({
-    selectedComponent: state.selectedComponent,
-    updateComponentProps: state.updateComponentProps,
-  }));
+  const { selectedComponent, updateComponentStyles } = useComponentStore();
 
-  const items: JsonFormProps['items'] = [
-    {
-      name: 'width',
-      label: '宽度',
-      schema: {
-        type: 'inputNumber',
-        props: {
-          min: 0,
-          max: 1280,
-        },
-      },
-    },
-    {
-      name: 'height',
-      label: '高度',
-      schema: {
-        type: 'inputNumber',
-        props: {
-          min: 0,
-        },
-      },
-    },
-  ];
-
-  const onValuesChange = (changedValues: any, allValues: SettingStyles) => {
-    console.log(changedValues, allValues);
+  const _onValuesChange = (_: any, allValues: React.CSSProperties) => {
+    if (!selectedComponent?.id) return;
+    updateComponentStyles(selectedComponent?.id, allValues);
   };
 
-  return <JsonForm form={form} items={items} onValuesChange={onValuesChange} />;
+  const { run: onValuesChange } = useDebounceFn(_onValuesChange, { wait: 300 });
+
+  if (!selectedComponent) return null;
+  const cid = selectedComponent?.cid;
+
+  return <JsonForm form={form} items={componentConfig[cid].styleSeeter} onValuesChange={onValuesChange} />;
 };
 
 export default SettingStyles;

@@ -1,7 +1,7 @@
 import { MouseEventHandler, RefObject, useEffect, useMemo, useState } from 'react';
 import { useComponentStore } from '../model';
 import { Popconfirm } from 'antd';
-import { useScroll, useWindowSize } from 'react-use';
+import { useMutationObserver, useScroll, useSize } from 'ahooks';
 import { DeleteOutlined } from '@ant-design/icons';
 
 const defaultPosition = {
@@ -14,10 +14,10 @@ const defaultPosition = {
 };
 
 export const useClickModal = (containerRef: RefObject<HTMLDivElement>) => {
-  const { selectedId, selectedComponent, setSelectedComponent, removeComponent } = useComponentStore();
+  const { selectedId, selectedComponent, setSelectedComponent, removeComponent, components } = useComponentStore();
   const [postion, setPosition] = useState({ ...defaultPosition });
-  const { x: containerX, y: containerY } = useScroll(containerRef);
-  const { width: windowWidth, height: windowHeight } = useWindowSize();
+  const scroll = useScroll(containerRef);
+  const size = useSize(containerRef);
 
   const updatePosition = (id?: number) => {
     const container = containerRef.current;
@@ -31,6 +31,8 @@ export const useClickModal = (containerRef: RefObject<HTMLDivElement>) => {
     }
 
     const { top, left, width, height } = element.getBoundingClientRect();
+    console.log('width', width);
+    console.log('height', height);
     const { top: containerTop, left: containerLeft } = container.getBoundingClientRect();
 
     const labelLeft = left - containerLeft + container.scrollLeft + width;
@@ -65,8 +67,10 @@ export const useClickModal = (containerRef: RefObject<HTMLDivElement>) => {
   };
 
   useEffect(() => {
-    updatePosition(selectedId);
-  }, [selectedId, containerX, containerY, windowWidth, windowHeight]);
+    setTimeout(() => {
+      updatePosition(selectedId);
+    }, 200);
+  }, [selectedId, size, scroll, components]);
 
   const dom = useMemo(() => {
     if (!selectedId) {
@@ -98,7 +102,7 @@ export const useClickModal = (containerRef: RefObject<HTMLDivElement>) => {
         </div>
       </>
     );
-  }, [selectedId, selectedComponent, postion]);
+  }, [selectedId, postion]);
 
   return {
     handleClick,

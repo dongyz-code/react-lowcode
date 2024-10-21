@@ -28,6 +28,7 @@ const EditorArea = () => {
           cid: item.cid,
           ...config.defaultProps,
           ...item.props,
+          style: item.styles,
         },
         renderComponent(item.children || [])
       );
